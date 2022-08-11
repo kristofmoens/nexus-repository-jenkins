@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JenkinsProxyIT -Dit.debug=&quot;true&quot;" type="JUnit" factoryName="JUnit">
+    <module name="nexus-repository-jenkins-it" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="org.sonatype.nexus.plugins.jenkins.internal.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="org.sonatype.nexus.plugins.jenkins.internal" />
+    <option name="MAIN_CLASS_NAME" value="org.sonatype.nexus.plugins.jenkins.internal.JenkinsProxyIT" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <option name="VM_PARAMETERS" value="-ea -Dit.debug=true" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

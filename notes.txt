@@ -1,0 +1,5 @@
+plugins: https://updates.jenkins.io/download/plugins/jakarta-activation-api/2.0.1-1/javakarta-activation-api.hpi
+war files: https://updates.jenkins.io/download/war/...
+
+
+GET https://updates.jenkins.io/download/plugins/jakarta-activation-api/2.0.1-1/javakarta-activation-api.hpi HTTP/1.1
