@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Proodos (TM) Open Source Version
+    Copyright (c) 2019-present Proodos BV.
+    All rights reserved. Includes the third-party code listed at http://links.sonatype.com/products/nexus/oss/attributions.
+    This program and the accompanying materials are made available under the terms of the Eclipse Public License Version 2.0,
+    which accompanies this distribution and is available at http://www.eclipse.org/legal/epl-v20.html.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.nexus.plugins</groupId>
+    <artifactId>nexus-plugins</artifactId>
+    <version>3.43.0-01</version>
+  </parent>
+
+  <artifactId>jenkins-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <inceptionYear>2022</inceptionYear>
+
+  <modules>
+    <module>nexus-repository-jenkins</module>
+    <module>nexus-repository-jenkins-it</module>
+  </modules>
+
+ <scm>
+    <developerConnection>scm:git:git@github.com:kristofmoens/nexus-repository-jenkins.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+    <licenses>
+        <license>
+            <name>Eclipse Public License Version 2.0</name>
+            <url>http://www.eclipse.org/legal/epl-v20.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>kristofmoens</id>
+            <name>Kristof Moens</name>
+            <email>13379877+kristofmoens@users.noreply.github.com</email>
+        </developer>
+    </developers>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/kristofmoens/nexus-repository-jenkins</url>
+        </snapshotRepository>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/kristofmoens/nexus-repository-jenkins</url>
+        </repository>
+    </distributionManagement>
+
+  <properties>
+    <nxrm-version>3.38.1-01</nxrm-version>
+  </properties>
+
+  <repositories>
+    <!-- ensure we can find the parent pom when starting from an empty local .m2 repository -->
+    <repository>
+      <id>rso-public-grid</id>
+      <url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+ <!--     <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          &lt;!&ndash; Something in the pom hierarchy overrides the default 'pushChanges == true', so we reset that here. &ndash;&gt;
+          <pushChanges>true</pushChanges>
+          <releaseProfiles>gpg-sign</releaseProfiles>
+          &lt;!&ndash;
+          CI build runs out of memory during release, with error like this:
+          Failed to execute goal org.apache.maven.plugins:maven-release-plugin:2.5.2:prepare (default-cli) on project nexus-repository-base: Maven execution failed, exit code: '137' -> [Help 1]
+          TODO: Investigate increasing available memory for the CI build
+          &ndash;&gt;
+          <arguments>-DskipTests</arguments>
+        </configuration>
+      </plugin>-->
+      <!--
+      Ensure use of Java 8, as required by NXRM
+      -->
+      <plugin>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.4.1</version>
+        <executions>
+          <execution>
+            <id>enforce-java</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireJavaVersion>
+                  <version>[1.8,1.9)</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+<!--
+    <profile>
+      <id>gpg-sign</id>
+      &lt;!&ndash;
+      only sign during deploy phase
+      &ndash;&gt;
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+                <configuration>
+                  <gpgArguments>
+                    <arg>&#45;&#45;pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <properties>
+        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase>
+      </properties>
+    </profile>
+-->
+  </profiles>
+</project>
